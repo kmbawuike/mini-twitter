@@ -1,6 +1,11 @@
 <div class="main posts-show">
   <div class="container">
     <div class="posts-show-item">
+      <div class="post-user-name">
+      <!-- Fill in the src attribute to display @user's profile image -->
+      <img src="<%= "/user_images/#{@user.image_name}"%>">
+      <%= link_to(@user.name, "/users/#{@user.id}")%>
+      </div>
       <p>
         <%= @post.content %>
       </p>
@@ -8,8 +13,10 @@
         <%= @post.created_at %>
       </div>
       <div class="post-menus">
+        <% if @post.user.id == @current_user.id%>
         <%= link_to("Edit", "/posts/#{@post.id}/edit") %>
         <%= link_to("Delete", "/posts/#{@post.id}/destroy", {method: "post"})%>
+        <%end%>
       </div>
     </div>
   </div>
