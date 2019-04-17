@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authentiate_user, {only:[:index, :show, :edit, :update]}
+  before_action :authenticate_user, {only:[:index, :show, :edit, :update]}
   before_action :forbid_user, {only:[:new, :login_form, :login, :create]}
   before_action :ensure_correct_user, {only:[:edit, :update]}
   def index
@@ -77,6 +77,11 @@ class UsersController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "You have logged out successfully"
     redirect_to("/")
+  end
+
+  def likes
+    @user = User.find_by(id: params[:id])
+    @likes = Like.where(user_id: @user.id)
   end
 
   def ensure_correct_user

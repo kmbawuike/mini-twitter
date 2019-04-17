@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
     @current_user = User.find_by(id: session[:user_id])
   end
 
-  def authentiate_user
+  def authenticate_user
     if session[:user_id] == nil
       flash[:notice] = "You must be logged in"
       redirect_to("/login")
